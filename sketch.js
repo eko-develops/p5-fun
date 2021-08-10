@@ -21,7 +21,7 @@ function draw() {
     for( let ball of balls ){
         ball.display()
         ball.move()
-        ball.bounce
+        ball.bounce()
     }
 
     fill(255)
