@@ -1,43 +1,54 @@
-//create the ball object. it will contain information about the ball.
-//starting location and the horizontal and vertical speeds
-let ball = {
-    x: 300,
-    y: 200,
-    xSpeed: 4,
-    ySpeed: -3
-  }
-  
-  function setup() {
+let ball1
+let ball2
+
+function setup() {
     createCanvas(400, 400);
-  }
-  
-  function draw() {
-    background(50)  //bg color
-    
-    createBall()
-    bounce()
-    move()
-  }
-  
-  function createBall(){
-      noStroke()  //remove border on ball
-      fill(100, 100, 200)  //fill the ball
-      circle(ball.x, ball.y, 24)  //create the ball
-  }
-  
-  function bounce(){
-    //if the ball reaches the right or left side
-    if(ball.x > width || ball.x < 0){
-      ball.xSpeed = ball.xSpeed * -1  //invert the speed(change the direction)
+
+    ball1 = new Ball(50, 200, 3, -4)
+    ball2 = new Ball(100, 50, 3, -4)
+}
+
+function draw() {
+    background(50) //bg color
+
+    ball1.display()
+    ball1.move()
+    ball1.bounce()
+
+    ball2.display()
+    ball2.move()
+    ball2.bounce()
+
+}
+
+class Ball {
+    constructor(x, y, xSpeed, ySpeed) {
+        this.x = x
+        this.y = y
+        this.xSpeed = xSpeed
+        this.ySpeed = ySpeed
     }
-    //if the ball reaches the top or the bottom of the screen
-    if(ball.y > height || ball.y < 0){
-      ball.ySpeed = ball.ySpeed * -1  //invert the speed(change the direction)
+
+    move() {
+        //on each draw, we'll increment the balls speed
+        this.x += this.xSpeed
+        this.y += this.ySpeed
     }
-  }
-  
-  function move(){
-    //on each draw, we'll increment the balls speed
-    ball.x += ball.xSpeed
-    ball.y += ball.ySpeed
-  }
+
+    display() {
+        noStroke() //remove border on ball
+        fill(100, 100, 200) //fill the ball
+        circle(this.x, this.y, 24) //create the ball
+    }
+
+    bounce() {
+        //if the ball reaches the right or left side
+        if (this.x > width || this.x < 0) {
+            this.xSpeed = this.xSpeed * -1 //invert the speed(change the direction)
+        }
+        //if the ball reaches the top or the bottom of the screen
+        if (this.y > height || this.y < 0) {
+            this.ySpeed = this.ySpeed * -1 //invert the speed(change the direction)
+        }
+    }
+}
