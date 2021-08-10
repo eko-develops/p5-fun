@@ -1,54 +1,32 @@
 let ball1
 let ball2
+let words = ["rainbow", "hello", "world"]
+let balls = []
+const ballsAmount = 50
 
 function setup() {
     createCanvas(400, 400);
 
-    ball1 = new Ball(50, 200, 3, -4)
-    ball2 = new Ball(100, 50, 3, -4)
+    //we can set a constant to create any amount of balls we want
+    for(let i = 0; i < ballsAmount; i++){
+        //for each ball, the starting position and speeds are randomized
+        balls[i] = new Ball(random(100, 200), random(100, 300), random(-2, 3), random(-2, 2))
+    }
 }
 
 function draw() {
     background(50) //bg color
 
-    ball1.display()
-    ball1.move()
-    ball1.bounce()
+    //loop through the balls array to display, move, and bounce the balls
+    balls.forEach( (ball) => {
+        ball.display()
+        ball.move()
+        ball.bounce()
+    })
 
-    ball2.display()
-    ball2.move()
-    ball2.bounce()
+    fill(255)
+    textSize(50)
+    text(words[1], 12, 200)
 
 }
 
-class Ball {
-    constructor(x, y, xSpeed, ySpeed) {
-        this.x = x
-        this.y = y
-        this.xSpeed = xSpeed
-        this.ySpeed = ySpeed
-    }
-
-    move() {
-        //on each draw, we'll increment the balls speed
-        this.x += this.xSpeed
-        this.y += this.ySpeed
-    }
-
-    display() {
-        noStroke() //remove border on ball
-        fill(100, 100, 200) //fill the ball
-        circle(this.x, this.y, 24) //create the ball
-    }
-
-    bounce() {
-        //if the ball reaches the right or left side
-        if (this.x > width || this.x < 0) {
-            this.xSpeed = this.xSpeed * -1 //invert the speed(change the direction)
-        }
-        //if the ball reaches the top or the bottom of the screen
-        if (this.y > height || this.y < 0) {
-            this.ySpeed = this.ySpeed * -1 //invert the speed(change the direction)
-        }
-    }
-}
