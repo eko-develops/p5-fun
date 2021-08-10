@@ -2,7 +2,7 @@ let ball1
 let ball2
 let words = ["rainbow", "hello", "world"]
 let balls = []
-const ballsAmount = 50
+const ballsAmount = 10
 
 function setup() {
     createCanvas(400, 400);
@@ -18,11 +18,11 @@ function draw() {
     background(50) //bg color
 
     //loop through the balls array to display, move, and bounce the balls
-    balls.forEach( (ball) => {
+    for( let ball of balls ){
         ball.display()
         ball.move()
-        ball.bounce()
-    })
+        ball.bounce
+    }
 
     fill(255)
     textSize(50)
@@ -30,3 +30,7 @@ function draw() {
 
 }
 
+function mousePressed(){
+    // console.log("hello")
+    balls.pop()
+}
