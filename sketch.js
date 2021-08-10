@@ -31,6 +31,7 @@ function draw() {
 }
 
 function mousePressed(){
-    // console.log("hello")
-    balls.pop()
+    for( let ball of balls){
+        ball.clicked(mouseX, mouseY)
+    }
 }
