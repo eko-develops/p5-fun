@@ -1,48 +1,38 @@
 class Ball {
-    constructor(x, y, xSpeed, ySpeed, radius = 26) {
-        this.x = x
-        this.y = y
-        this.xSpeed = xSpeed
-        this.ySpeed = ySpeed
+    constructor(posX, posY, radius, xVelocity = 3, yVelocity = -1) {
+        this.posX = posX
+        this.posY = posY
         this.radius = radius
-
-        //local variables for the class
-        this.red = 100
-        this.blue = 100
-        this.green = 155
+        this.xVelocity = xVelocity
+        this.yVelocity = yVelocity
     }
 
-    //make the balls move
-    move() {
-        //on each draw, we'll increment the balls speed
-        this.x += this.xSpeed
-        this.y += this.ySpeed
+    createBall(){
+        fill(100, 200, 255)
+        noStroke()
+        circle(this.posX, this.posY, this.radius)
     }
 
-    //when the ball is clicked, change its color
-    clicked(mouseX, mouseY){
-        let d = dist(mouseX, mouseY, this.x, this.y)    //dist calcualtes distance from mouse to center of object
-        if(d < this.radius){    //if the mouse is within the radius
-            this.red = random(0, 255)
-            this.greed = random(0, 255)
-            this.blue = random(0, 255)
+    moveBall(){
+        this.posX += this.xVelocity
+        this.posY += this.yVelocity
+    }
+
+    bounceBall(width, height){
+        if (this.posX > width || this.posX < 0){
+            this.xVelocity = this.xVelocity * -1
+        }
+        if(this.posY > height || this.posY < 0){
+            this.yVelocity = this.yVelocity * -1
         }
     }
 
-    display() {
-        noStroke() //remove border on ball
-        fill(this.red, this.green, this.blue)
-        circle(this.x, this.y, this.radius) //create the ball
+    colliding(otherBall){
+        let d = dist(this.posX, this.posY, otherBall.posX, otherBall.posY)
+        return d < this.radius + otherBall.radius
     }
 
-    bounce() {
-        //if the ball reaches the right or left side
-        if (this.x > width || this.x < 0) {
-            this.xSpeed = this.xSpeed * -1 //invert the speed(change the direction)
-        }
-        //if the ball reaches the top or the bottom of the screen
-        if (this.y > height || this.y < 0) {
-            this.ySpeed = this.ySpeed * -1 //invert the speed(change the direction)
-        }
+    changeRadius(radius){
+        this.radius = radius
     }
 }
